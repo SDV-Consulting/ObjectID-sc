@@ -1,8 +1,10 @@
 [package]
-name = "oid"
+name = "ObjectID"
+version = "0.0.1"
 edition = "2024.beta" # edition = "legacy" to use legacy (pre-2024) Move
-# license = ""           # e.g., "MIT", "GPL", "Apache 2.0"
-# authors = ["..."]      # e.g., ["Joe Smith (joesmith@noemail.com)", "John Snow (johnsnow@noemail.com)"]
+published-at = "0x0"
+# license = "SPDX-License-Identifier: AGPLv3"
+# authors = ["Stefano Della Valle - Stefano.DelaValle@sdvconsulting.it"]
 
 [dependencies]
 Iota = { git = "https://github.com/iotaledger/iota.git", subdir = "crates/iota-framework/packages/iota-framework", rev = "testnet" }
@@ -19,7 +21,7 @@ Iota = { git = "https://github.com/iotaledger/iota.git", subdir = "crates/iota-f
 # Override = { local = "../conflicting/version", override = true }
 
 [addresses]
-oid = "0x0"
+objectId = "0x0"
 
 # Named addresses will be accessible in Move as `@name`. They're also exported:
 # for example, `std = "0x1"` is exported by the Standard Library.
@@ -34,4 +36,3 @@ oid = "0x0"
 # The dev-addresses section allows overwriting named addresses for the `--test`
 # and `--dev` modes.
 # alice = "0xB0B"
-
