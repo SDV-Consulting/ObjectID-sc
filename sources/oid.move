@@ -11,7 +11,7 @@ module objectId::oid_object {
     use iota::token::{Token, TokenPolicy};
     use iota::transfer::{Receiving};
 
-    public struct OIDFood has key, store, drop {
+    public struct OIDFood has key, store {
         id: UID, // Unique identifier for the object
         epc: String, // Global Trade Item Number
         lot_number: String, // Lot number
@@ -95,8 +95,8 @@ module objectId::oid_object {
         transfer::share_object(object);
     }
 
-    public fun update_ro_owner(  
-        object: &mut OIDObject<OIDFood>,
+    public fun update_ro_owner<T>(  
+        object: &mut OIDObject<T>,
         new_ro_owner: address,
         ctx: &mut TxContext,
         )
@@ -106,8 +106,8 @@ module objectId::oid_object {
             object.ro_owner = new_ro_owner;
         }
 
-    public fun update_geo_location(
-        object: &mut OIDObject<OIDFood>, 
+    public fun update_geo_location<T>(
+        object: &mut OIDObject<T>, 
         new_location: String, 
         ctx: &mut TxContext
         ) 
@@ -117,8 +117,10 @@ module objectId::oid_object {
             object.geo_location = new_location;
         }
 
-    public fun delete_object(
-        object: OIDObject, 
+
+    public fun delete_object<T: drop>(
+        object: OIDObject<T>, 
+        w_obj: T,  //wrapped object
         ctx: &mut TxContext
         ) 
         {

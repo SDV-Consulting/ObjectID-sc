@@ -1,0 +1,86 @@
+
+╭──────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Object Changes                                                                                   │
+├──────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Created Objects:                                                                                 │
+│  ┌──                                                                                             │
+│  │ ObjectID: 0xa1f184c94aacba7cee043d0fae9d128766c653582e5620e1cd551f6288b397fb                  │
+│  │ Sender: 0x448a5fbcf49952db071d4d1db2e5713fa9dd27c75479019410b8fd799716d533                    │
+│  │ Owner: Account Address ( 0x448a5fbcf49952db071d4d1db2e5713fa9dd27c75479019410b8fd799716d533 ) │
+│  │ ObjectType: 0x2::package::UpgradeCap                                                          │
+│  │ Version: 189457066                                                                            │
+│  │ Digest: AV5ybzY7883MuxJFX6yzPGprNEH3nMPLdevYHJM1qcWe                                          │
+│  └──                                                                                             │
+│ Mutated Objects:                                                                                 │
+│  ┌──                                                                                             │
+│  │ ObjectID: 0xc85b3e96f9aef63fed2667b5a6854e9217b660072dcff71dd358e1e0a3f8287d                  │
+│  │ Sender: 0x448a5fbcf49952db071d4d1db2e5713fa9dd27c75479019410b8fd799716d533                    │
+│  │ Owner: Account Address ( 0x448a5fbcf49952db071d4d1db2e5713fa9dd27c75479019410b8fd799716d533 ) │
+│  │ ObjectType: 0x2::coin::Coin<0x2::iota::IOTA>                                                  │
+│  │ Version: 189457066                                                                            │
+│  │ Digest: FMgzyvid3FrtYSTwhJn4gNgBm624dL9ZszdzkdwYNLHn                                          │
+│  └──                                                                                             │
+│ Published Objects:                                                                               │
+│  ┌──                                                                                             │
+│  │ PackageID: 0x94b7aa02cfc6a74a4d50b8b43edff316d803ef98cf4208a0c6d7fd6d4630fdf9                 │
+│  │ Version: 1                                                                                    │
+│  │ Digest: Ad4B9XuLkXrWL5SnQFeZQepS1DcvMuhSYSTGyPVxrpv6                                          │
+│  │ Modules: oid_object                                                                           │
+│  └──                                                                                             │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭───────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ Balance Changes                                                                                   │
+├───────────────────────────────────────────────────────────────────────────────────────────────────┤
+│  ┌──                                                                                              │
+│  │ Owner: Account Address ( 0x448a5fbcf49952db071d4d1db2e5713fa9dd27c75479019410b8fd799716d533 )  │
+│  │ CoinType: 0x2::iota::IOTA                                                                      │
+│  │ Amount: -14429200                                                                              │
+│  └──                                                                                              │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+iota keytool import iotaprivkey1qzzltcyujfr8c30em9xp3tx7j5zaegw49zny53m3llwxr2u8jq37xk69a8y ed25519 --alias OID_master
+
+
+export GAS_ID=0xc85b3e96f9aef63fed2667b5a6854e9217b660072dcff71dd358e1e0a3f8287d
+
+export PACKAGE_ID=0x94b7aa02cfc6a74a4d50b8b43edff316d803ef98cf4208a0c6d7fd6d4630fdf9
+export UPGRADE_CAP_ID=0xa1f184c94aacba7cee043d0fae9d128766c653582e5620e1cd551f6288b397fb
+
+export ADD=0x448a5fbcf49952db071d4d1db2e5713fa9dd27c75479019410b8fd799716d533
+
+
+
+iota client call \
+    --package $PACKAGE_ID \
+    --module oid_object \
+    --function create_food_object \
+    --args \
+        "description" \
+        "producer_url" \
+        "product_url" \
+        "geo_location" \
+        "0x6" \
+        "epc" \
+        "lot_number" \
+        "expiration_date" \
+        "shop" \
+    --gas $GAS_ID \
+    --gas-budget 10000000
+
+
+https://explorer.rebased.iota.org/object/0x70e9ab9230b6c8cfe0a0a5e09e3f260c169def896bef09186f54e72aa4fca103
+
+
+
+iota client call \
+    --package $PACKAGE_ID \
+    --module oid_object \
+    --function delete_object \
+    --args \
+        "0x4ca9a385e9a265497be52188da4045fe2519fcca2b3acfc418dbd3c3b424c9b0" \
+        "0x6" \
+    --gas $GAS_ID \
+    --gas-budget 10000000
+
+
+
