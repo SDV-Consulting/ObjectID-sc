@@ -84,3 +84,23 @@ iota client call \
 
 
 
+
+export PACKAGE_ID=0x43e18f1ee6a5de5c3f4660156b3caa776f99c3e514d3388a608a9b58f03e81f7
+
+iota client call \
+    --package $PACKAGE_ID \
+    --module oid_object \
+    --function create_food_object \
+    --args \
+        "0x7a7df89f9d9bb1e0d3e18c8a8e30d7bddad6c23274d291b32066f63cb207795d" \
+        "description" \
+        "producer_url" \
+        "product_url" \
+        "geo_location" \
+        "0x6" \
+        "epc" \
+        "lot_number" \
+        "expiration_date" \
+        "shop" \
+    --gas $GAS_ID \
+    --gas-budget 10000000

@@ -9,8 +9,8 @@ module objectId::oid_object {
     use iota::clock::Clock;
     use std::string::String;
     use iota::token::{Token, TokenPolicy};
-    use iota::transfer::{Receiving};
-
+    use iota_identity::controller::{ControllerCap, controller_of};
+    
     public struct OIDFood has key, store {
         id: UID, // Unique identifier for the object
         epc: String, // Global Trade Item Number
@@ -19,24 +19,6 @@ module objectId::oid_object {
         shop: String,
     }
 
-
-    public struct OIDBox has key, store {
-        id: UID, // Unique identifier for the object
-        serial_number: String, // Global Trade Item Number
-        weight: String,
-        height: String,
-        width: String,
-        depth: String,
-        expiration_date: String, // Expiration date in ISO 8601 format
-        shop: String,
-    }
-
-    public struct Apparel has store {
-        category: vector<u8>,  // categoria (es: scarpe, borsa, giacca, ecc.)
-        size: vector<u8>,      // taglia (es: S, M, L, 42, ecc.)
-        color: vector<u8>,     // colore prodotto
-        material: vector<u8>,  // materiale (es: cotone, pelle, ecc.)
-    }
 
 
     public struct OIDObject<T> has key, store {
@@ -51,9 +33,9 @@ module objectId::oid_object {
         w_obj: T  //wrapped object
     }
 
-    
 
     public fun create_food_object(
+        ccap:  &ControllerCap,
         description: String,
         producer_url: String,
         product_url: String,
@@ -80,6 +62,8 @@ module objectId::oid_object {
             shop
         };
 
+        let identity_id = controller_of(ccap);
+
         let object = OIDObject<OIDFood> {
             id: object::new(ctx),
             description,
@@ -94,6 +78,30 @@ module objectId::oid_object {
 
         transfer::share_object(object);
     }
+
+/*
+
+
+
+    public struct OIDBox has key, store {
+        id: UID, // Unique identifier for the object
+        serial_number: String, // Global Trade Item Number
+        weight: String,
+        height: String,
+        width: String,
+        depth: String,
+        expiration_date: String, // Expiration date in ISO 8601 format
+        shop: String,
+    }
+
+    public struct Apparel has store {
+        category: vector<u8>,  // categoria (es: scarpe, borsa, giacca, ecc.)
+        size: vector<u8>,      // taglia (es: S, M, L, 42, ecc.)
+        color: vector<u8>,     // colore prodotto
+        material: vector<u8>,  // materiale (es: cotone, pelle, ecc.)
+    }
+
+
 
     public fun update_ro_owner<T>(  
         object: &mut OIDObject<T>,
@@ -117,10 +125,23 @@ module objectId::oid_object {
             object.geo_location = new_location;
         }
 
+public fun update_lot_number(
+    object: &mut OIDObject<OIDFood>,
+    new_lot_number: String,
+    ctx: &mut TxContext
+) {
+    let caller = tx_context::sender(ctx);
+    assert!(caller == object.ro_owner, 1); 
+
+    object.w_obj.lot_number = new_lot_number;
+}
+
+
+
 
     public fun delete_object<T: drop>(
         object: OIDObject<T>, 
-        w_obj: T,  //wrapped object
+        //w_obj: T,  //wrapped object
         ctx: &mut TxContext
         ) 
         {
@@ -130,4 +151,8 @@ module objectId::oid_object {
             object::delete(id);
         }
 
+*/
+
+
 }
+

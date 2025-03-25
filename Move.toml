@@ -7,7 +7,9 @@ published-at = "0x0"
 # authors = ["Stefano Della Valle - Stefano.DelaValle@sdvconsulting.it"]
 
 [dependencies]
-Iota = { git = "https://github.com/iotaledger/iota.git", subdir = "crates/iota-framework/packages/iota-framework", rev = "testnet" }
+Iota = { git = "https://github.com/iotaledger/iota.git", subdir = "crates/iota-framework/packages/iota-framework",  rev = "45df8ac5533251237ce34f7c6e5cbc099805895e" }
+IotaIdentity = { git = "https://github.com/iotaledger/identity.rs.git", subdir = "identity_iota_core/packages/iota_identity", rev = "wasm-v1.6.0-alpha"  }
+
 
 # For remote import, use the `{ git = "...", subdir = "...", rev = "..." }`.
 # Revision can be a branch, a tag, and a commit hash.
@@ -22,6 +24,7 @@ Iota = { git = "https://github.com/iotaledger/iota.git", subdir = "crates/iota-f
 
 [addresses]
 objectId = "0x0"
+iota_Identity = "0x222741bbdff74b42df48a7b4733185e9b24becb8ccfbafe8eac864ab4e4cc555"
 
 # Named addresses will be accessible in Move as `@name`. They're also exported:
 # for example, `std = "0x1"` is exported by the Standard Library.
